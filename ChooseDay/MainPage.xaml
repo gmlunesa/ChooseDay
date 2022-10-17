@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:ChooseDay.ViewModels"
+             xmlns:models="clr-namespace:ChooseDay.Models"
+             x:DataType="viewmodels:MyDaysViewModel"
+             x:Class="ChooseDay.MainPage">
+
+    <Grid Padding="12"
+          RowDefinitions="AUTO,AUTO,*,AUTO">
+
+        <HorizontalStackLayout>
+            <Label FontFamily="OpenSans-Bold" FontSize="24" Text="Your Days" />
+            
+        </HorizontalStackLayout>
+
+        <Label FontFamily="OpenSans-LightItalic" 
+               FontSize="16" 
+               Text="Choose a theme day for yourself." 
+               TextColor="{StaticResource Gray600}" 
+               Grid.Row="1" />
+
+        <CollectionView ItemsSource="{Binding Days}"
+                            Grid.Row="2"
+                            Margin="0,14">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="16"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Day">
+                    <Border MinimumHeightRequest="250" 
+                            Stroke="{StaticResource Blue300Accent}" 
+                            StrokeThickness="0.5" >
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="{Binding Image}" 
+                                   Aspect="AspectFill" />
+
+                            <Grid Grid.Column="1"
+                                  Padding="16"
+                                  RowDefinitions="AUTO,AUTO,*">
+
+                                <Label Text="{Binding Name}" 
+                                   FontSize="20"
+                                   FontFamily="OpenSans-SemiBold"/>
+
+
+                                <FlexLayout BindableLayout.ItemsSource="{Binding Activities}"
+                                        Grid.Row="1"
+                                        Wrap="Wrap"
+                                        AlignItems="Start">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame Padding="8"
+                                               Margin="1"
+                                               BorderColor="Transparent"
+                                               BackgroundColor="{StaticResource Yellow300Accent}">
+                                                <Label Text="{Binding .}" />
+                                            </Frame>
+
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </FlexLayout>
+
+                                <Label Text="{Binding Description}" 
+                                   TextColor="{StaticResource Gray900}"
+                                   Padding="0,20,0,0"
+                                   Grid.Row="2" />
+                            </Grid>
+
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+        <Button Text="Create New Day" 
+                TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Blue100Accent}, Dark={StaticResource Blue100Accent}}" 
+                Padding="16" 
+                Grid.Row="3" />
+
+    </Grid>
+</ContentPage>
