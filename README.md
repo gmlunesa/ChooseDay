@@ -13,7 +13,7 @@ ChooseDay is a cross-platform application (Android, iOS and Windows) that displa
 
 ### Screenshots
 
-![](https://github.com/gmlunesa/ChooseDay/blob/master/Assets/Images/choosedayscreenshot.jpg)
+<img src="https://github.com/gmlunesa/ChooseDay/blob/master/Assets/Images/choosedayscreenshot.jpg" height="500" alt="NET Core">
 
 ## License
 
