@@ -5,10 +5,12 @@ namespace ChooseDay;
 public partial class MainPage : ContentPage
 {
 
-	public MainPage()
+	public MainPage(MyDaysViewModel viewModel)
 	{
 		InitializeComponent();
-		BindingContext = new MyDaysViewModel();
+
+		// Inject view model to the main page
+		BindingContext = viewModel;
 
     }
 	
