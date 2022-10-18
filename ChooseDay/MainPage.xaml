@@ -4,7 +4,8 @@
              xmlns:viewmodels="clr-namespace:ChooseDay.ViewModels"
              xmlns:models="clr-namespace:ChooseDay.Models"
              x:DataType="viewmodels:MyDaysViewModel"
-             x:Class="ChooseDay.MainPage">
+             x:Class="ChooseDay.MainPage"
+             Title="{Binding Title}">
 
     <Grid Padding="12"
           RowDefinitions="AUTO,AUTO,*,AUTO">
@@ -17,10 +18,10 @@
         <Label FontFamily="OpenSans-LightItalic" 
                FontSize="16" 
                Text="Choose a theme day for yourself." 
-               TextColor="{StaticResource Gray600}" 
+               TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray100}}" 
                Grid.Row="1" />
 
-        <CollectionView ItemsSource="{Binding Days}"
+        <CollectionView ItemsSource="{Binding MyDays}"
                             Grid.Row="2"
                             Margin="0,14">
             <CollectionView.ItemsLayout>
@@ -30,12 +31,9 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Day">
-                    <Border MinimumHeightRequest="250" 
-                            Stroke="{StaticResource Blue300Accent}" 
-                            StrokeThickness="0.5" >
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5" />
-                        </Border.StrokeShape>
+                    <Frame HeightRequest="275"  
+                           Padding="0"
+                           Style="{StaticResource CardView}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -63,8 +61,9 @@
                                             <Frame Padding="8"
                                                Margin="1"
                                                BorderColor="Transparent"
-                                               BackgroundColor="{StaticResource Yellow300Accent}">
-                                                <Label Text="{Binding .}" />
+                                               BackgroundColor="{StaticResource Rose300Accent}">
+                                                <Label Text="{Binding .}"
+                                                       TextColor="{StaticResource Gray900}" />
                                             </Frame>
 
                                         </DataTemplate>
@@ -72,24 +71,31 @@
                                 </FlexLayout>
 
                                 <Label Text="{Binding Description}" 
-                                   TextColor="{StaticResource Gray900}"
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray100}}"
                                    Padding="0,20,0,0"
                                    Grid.Row="2" />
                             </Grid>
 
 
                         </Grid>
-                    </Border>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
 
-        <Button Text="Create New Day" 
-                TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"
-                BackgroundColor="{AppThemeBinding Light={StaticResource Blue100Accent}, Dark={StaticResource Blue100Accent}}" 
-                Padding="16" 
-                Grid.Row="3" />
+        <Button Text="Get Recommendations" 
+                Command="{Binding GetMyDaysCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Grid.Row="3"
+                Style="{StaticResource ButtonOutline}"/>
+
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"/>
 
     </Grid>
 </ContentPage>
