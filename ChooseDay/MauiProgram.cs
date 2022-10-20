@@ -18,7 +18,11 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<MyDayService>();
         builder.Services.AddSingleton<MyDaysViewModel>();
+
+		builder.Services.AddTransient<MyDayDetailsViewModel>();
+
         builder.Services.AddSingleton<MainPage>();
+		builder.Services.AddTransient<DetailsPage>();
 
         return builder.Build();
 	}

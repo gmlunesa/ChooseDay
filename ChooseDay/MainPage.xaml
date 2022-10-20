@@ -22,8 +22,9 @@
                Grid.Row="1" />
 
         <CollectionView ItemsSource="{Binding MyDays}"
-                            Grid.Row="2"
-                            Margin="0,14">
+                        Grid.Row="2"
+                        Margin="0,14"
+                        >
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"
                                    ItemSpacing="16"/>
@@ -34,6 +35,11 @@
                     <Frame HeightRequest="275"  
                            Padding="0"
                            Style="{StaticResource CardView}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyDaysViewModel}}, Path=GoToDetailsCommand}" />
+
+                        </Frame.GestureRecognizers>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />

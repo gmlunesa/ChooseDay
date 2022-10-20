@@ -1,5 +1,6 @@
 ﻿using ChooseDay.Models;
 using ChooseDay.Services;
+using static Android.Telephony.CarrierConfigManager;
 
 namespace ChooseDay.ViewModels
 {
@@ -18,6 +19,23 @@ namespace ChooseDay.ViewModels
             this.myDayService = myDayService;
         }
 
+        // Generates GoToDetailsCommand automatically
+        [RelayCommand]
+        async Task GoToDetailsAsync(Day day)
+        {
+            if (day is null)
+                return;
+
+            // Use the built-in Shell Navigation API
+            // When item is selected, push a new DetailsPage with the day as the parameter
+            await Shell.Current.GoToAsync($"{nameof(DetailsPage)}", 
+                true,
+                new Dictionary<string, object>
+                {
+                    // Query identifier
+                    {nameof(Day), day}
+                });
+        }
 
         // RelayCommand enables us to bind the command and data between the viewmodel and view
         // Generates GetMyDaysCommand automatically
